@@ -4,7 +4,7 @@ import os
 class juan_db:
     def __init__(self,db_name):
         self.name=db_name
-        self.tables=[]
+        self.tables={}
         a=os.listdir()
         if db_name not in a:
             os.mkdir(db_name)
@@ -13,8 +13,8 @@ class juan_db:
         else:
             file=open(db_name+'/index.csv','r')
             for i in file:
-                temp=i.split(',')
-                self.tables.append(temp)
+                temp=i.split(':')
+                self.tables[temp[0]]=temp[1]
             file.close()
 
     def create_table(self,tb_name,col):
@@ -24,7 +24,7 @@ class juan_db:
             return
         file=open(self.name+'/index.csv','a')
         file.write('\n')
-        file.write("%s,%s"%(tb_name,col))
+        file.write("%s:%s"%(tb_name,col))
         file.close()
         file=open(self.name+'/'+tb_name+'.csv','w+')
         file.close()
@@ -33,10 +33,9 @@ class juan_db:
 
     def add(self,tb_name,val):
         # validate name, val
-        for i in self.tables:
-            if i[0]==tb_name:
-                temp=i[1:]
-                break
+        temp=self.tables[tb_name]
+        temp=temp[1:-2]
+        temp=temp.split(',')
         if len(val)==len(temp):
             file=open(self.name+'/'+tb_name+'.csv','a')
             file.write('\n')
@@ -58,5 +57,5 @@ class juan_db:
 a=juan_db('felix')
 # a.create_table('ok',[str,int])
 # a.fetch('index')
-a.add('income',['job',10000])
+a.add('expense',['food',1000])
 print(a.tables)
