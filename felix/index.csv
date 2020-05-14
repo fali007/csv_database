@@ -1,1 +1,3 @@
-income,[2, <class 'str'>, <class 'int'>]expense,[2, <class 'str'>, <class 'int'>]
+income,[<class 'str'>, <class 'int'>]
+expense,[<class 'str'>, <class 'int'>]
+balance,[<class 'str'>, <class 'int'>]
