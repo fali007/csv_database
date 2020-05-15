@@ -1,3 +1,4 @@
 income:[<class 'str'>, <class 'int'>]
 expense:[<class 'str'>, <class 'int'>]
 balance:[<class 'str'>, <class 'int'>]
+ok:[<class 'str'>, <class 'int'>, <class 'int'>, <class 'str'>]

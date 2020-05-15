@@ -23,12 +23,12 @@ class juan_db:
             print("similar DB already present give another name")
             return
         file=open(self.name+'/index.csv','a')
-        file.write('\n')
         file.write("%s:%s"%(tb_name,col))
+        file.write('\n')
         file.close()
         file=open(self.name+'/'+tb_name+'.csv','w+')
         file.close()
-        self.tables.append(tb_name)
+        self.tables[tb_name]=col
         print("table created with name %s"%(tb_name))
 
     def add(self,tb_name,val):
@@ -36,14 +36,27 @@ class juan_db:
         temp=self.tables[tb_name]
         temp=temp[1:-2]
         temp=temp.split(',')
+        for i in range(1,len(temp)):
+            temp[i]=temp[i][1:]
+        print(temp)
         if len(val)==len(temp):
-            file=open(self.name+'/'+tb_name+'.csv','a')
-            file.write('\n')
+            flag=True
             for i in range(len(val)):
-                file.write(str(val[i]))
-                if i!=len(val)-1:
-                    file.write(',')
-            file.close()
+                if str(type(val[i]))!=str(temp[i]):
+                    print(len(str(type(val[i]))),len(str(temp[i])))
+                    flag=False
+            if flag:
+                file=open(self.name+'/'+tb_name+'.csv','a')
+                file.write('\n')
+                for i in range(len(val)):
+                    file.write(str(val[i]))
+                    if i!=len(val)-1:
+                        file.write(',')
+                file.close()
+            else:
+                print("given incorrect format")
+        else:
+            print("length incorrect")
         pass
     
     def fetch(self,tb_name):
@@ -55,7 +68,7 @@ class juan_db:
 
 
 a=juan_db('felix')
-# a.create_table('ok',[str,int])
+a.create_table('ok',[str,int,int,str])
 # a.fetch('index')
-a.add('expense',['food',1000])
-print(a.tables)
+a.add('ok',['food',1000,10,"new"])
+# print(a.tables)
